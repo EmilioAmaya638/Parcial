@@ -1,97 +1,65 @@
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Date;
-import java.util.Random;
-import java.util.UUID;
+import java.time.*;
+import java.util.*;
 
 public class Vuelo {
-
     private String idVuelo;
-    public String nombre;
-    public String origen;
-    public String destino;
-    public Date fecha;
-    public Time horaSalida;
-    public String aeroLinea;
-    public int tarifa;
-    public int asientosDisponibles;
+    private String origen;
+    private String destino;
+    private LocalDate fecha;
+    private LocalTime horaSalida;
+    private Aerolinea aerolinea;
+    private double tarifa;
+    private List<String> asientosDisponibles;
 
-    public Vuelo(LocalTime horaSalida ,String idVuelo,String nombre,String origen,String destino,LocalDate fecha,int tarifa,int asientosDisponibles) {
-
+    public Vuelo(String idVuelo, String origen, String destino, LocalDate fecha,
+                 LocalTime horaSalida, Aerolinea aerolinea, double tarifa) {
         this.idVuelo = idVuelo;
-        this.nombre = nombre;
         this.origen = origen;
         this.destino = destino;
         this.fecha = fecha;
+        this.horaSalida = horaSalida;
+        this.aerolinea = aerolinea;
         this.tarifa = tarifa;
-        this.asientosDisponibles = asientosDisponibles;
-
-    }
-    public String getIdVuelo() {
-        return idVuelo;
-    }
-    public String getNombre() {
-        return nombre;
-    }
-    public String getOrigen() {
-        return origen;
-    }
-    public String getDestino() {
-        return destino;
-    }
-    public Date getFecha() {
-        return fecha;
-    }
-    public int getTarifa() {
-        return tarifa;
-    }
-    public int getAsientosDisponibles() {
-        return asientosDisponibles;
-    }
-    public String getAeroLinea() {
-        return aeroLinea;
-    }
-    public String gethoraSalida() {
-        return horaSalida.toString();
+        this.asientosDisponibles = generarAsientos(); // ejemplo: A1-A5, B1-B5
     }
 
-    public static Vuelo generarVueloAleatorio() {
-        Random random = new Random();
-
-        // Generar ID aleatorio
-        String idVuelo = UUID.randomUUID().toString();
-
-        // Lista de posibles orígenes y destinos (puedes expandir esto)
-        String[] origenes = {"Bogotá", "Medellín", "Cali", "Barranquilla", "Cartagena"};
-        String[] destinos = {"Nueva York", "Madrid", "Miami", "Ciudad de México", "Buenos Aires"};
-
-        String origen = origenes[random.nextInt(origenes.length)];
-        String destino = destinos[random.nextInt(destinos.length)];
-
-        // Asegurar que origen y destino sean diferentes
-        while (origen.equals(destino)) {
-            destino = destinos[random.nextInt(destinos.length)];
+    private List<String> generarAsientos() {
+        List<String> asientos = new ArrayList<>();
+        for (char fila = 'A'; fila <= 'C'; fila++) {
+            for (int num = 1; num <= 5; num++) {
+                asientos.add("" + fila + num);
+            }
         }
+        return asientos;
+    }
 
-        // Generar fecha aleatoria dentro de un rango (ejemplo: próximos 30 días)
-        LocalDate fechaAleatoria = LocalDate.now().plusDays(random.nextInt(30));
+    public void mostrarAsientosDisponibles() {
+        System.out.println("Asientos disponibles:");
+        for (String asiento : asientosDisponibles) {
+            System.out.print(asiento + " ");
+        }
+        System.out.println();
+    }
 
-        // Generar hora de salida aleatoria
-        LocalTime horaSalidaAleatoria = LocalTime.of(random.nextInt(24), random.nextInt(60));
+    public boolean reservarAsiento(String asiento) {
+        return asientosDisponibles.remove(asiento);
+    }
 
-        // Lista de aerolíneas
-        String[] aerolineas = {"Avianca", "LATAM", "Viva Air", "Copa Airlines", "American Airlines"};
-        String aerolineaAleatoria = aerolineas[random.nextInt(aerolineas.length)];
+    public boolean asientoDisponible(String asiento) {
+        return asientosDisponibles.contains(asiento);
+    }
 
-        // Generar tarifa aleatoria (entero)
-        int tarifaAleatoria = random.nextInt(500) + 50; // Tarifa entre 50 y 549
-
-        // Generar número de asientos disponibles aleatorio
-        int asientosAleatorios = random.nextInt(200) + 50; // Asientos entre 50 y 249
-
-        return new Vuelo(idVuelo, origen, destino, fechaAleatoria, horaSalidaAleatoria, aerolineaAleatoria, tarifaAleatoria, asientosAleatorios);
+    public String consultarInformacion() {
+        return String.format("Vuelo %s: %s → %s\nFecha: %s\nHora: %s\nAerolínea: %s\nTarifa: $%.2f",
+                idVuelo, origen, destino, fecha.toString(), horaSalida.toString(), aerolinea.getNombre(), tarifa);
     }
 
 
+    public String getIdVuelo() { return idVuelo; }
+    public String getOrigen() { return origen; }
+    public String getDestino() { return destino; }
+    public LocalDate getFecha() { return fecha; }
+    public LocalTime getHoraSalida() { return horaSalida; }
+    public Aerolinea getAerolinea() { return aerolinea; }
+    public double consultarTarifa() { return tarifa; }
 }

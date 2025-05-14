@@ -2,8 +2,8 @@ public class Aerolinea {
     private String codigoAerolinea;
     private String nombre;
 
-    public Aerolinea(String codigoAerolinea, String nombre) {
-        this.codigoAerolinea = codigoAerolinea;
+    public Aerolinea(String codigo, String nombre) {
+        this.codigoAerolinea = codigo;
         this.nombre = nombre;
     }
 

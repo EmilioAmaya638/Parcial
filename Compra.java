@@ -1,18 +1,20 @@
-import java.time.LocalDateTime;
+import java.util.List;
 
 public class Compra {
-    private String idCompra;
-    private LocalDateTime fechaCompra;
+    private String fechaCompra;
     private double montoTotal;
 
-    public Compra(String idCompra, double montoTotal) {
-        this.idCompra = idCompra;
+    public Compra(String fechaCompra, double montoTotal) {
+        this.fechaCompra = fechaCompra;
         this.montoTotal = montoTotal;
-        this.fechaCompra = LocalDateTime.now();
     }
 
-    public void generarBoleto() {
-        System.out.printf("Compra #%s | Fecha: %s | Monto total: %.2f\n", idCompra, fechaCompra, montoTotal);
+    public double getMontoTotal() {
+        return montoTotal;
+    }
+
+    public String getFechaCompra() {
+        return fechaCompra;
     }
 }
 

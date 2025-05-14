@@ -1,27 +1,24 @@
 public class HistorialVuelo {
-    private String idHistorialVuelo;
-    private String idVueloReferencia;
+    private String idVuelo;
     private String origen;
     private String destino;
     private String fecha;
     private String horaSalida;
     private String aerolinea;
-    private double tarifaHistorica;
+    private double tarifa;
 
-    public HistorialVuelo(String idHistorialVuelo, Vuelo vuelo) {
-        this.idHistorialVuelo = idHistorialVuelo;
-        this.idVueloReferencia = vuelo.getIdVuelo();
+    public HistorialVuelo(Vuelo vuelo) {
+        this.idVuelo = vuelo.getIdVuelo();
         this.origen = vuelo.getOrigen();
         this.destino = vuelo.getDestino();
         this.fecha = vuelo.getFecha();
         this.horaSalida = vuelo.getHoraSalida();
         this.aerolinea = vuelo.getAerolinea().getNombre();
-        this.tarifaHistorica = vuelo.getTarifa();
+        this.tarifa = vuelo.getTarifa();
     }
 
-    public void mostrarHistorial() {
-        System.out.printf("Historial Vuelo [%s] %s → %s | Fecha: %s | Hora: %s | Aerolínea: %s | Tarifa: %.2f\n",
-                idVueloReferencia, origen, destino, fecha, horaSalida, aerolinea, tarifaHistorica);
+    public void mostrar() {
+        System.out.println("- " + aerolinea + ": " + origen + " -> " + destino + " el " + fecha + " a las " + horaSalida + " ($" + tarifa + ")");
     }
 }
 

@@ -1,29 +1,25 @@
 import java.util.List;
 
 public class HistorialReserva {
-    private String idHistorialReserva;
-    private String idReservaReferencia;
-    private String fechaReserva;
-    private String estadoHistorico;
-    private List<HistorialVuelo> vuelosHistoricos;
-    private List<Pasajero> pasajerosHistoricos;
+    private Compra compra;
+    private List<HistorialVuelo> vuelos;
+    private List<Pasajero> pasajeros;
 
-    public HistorialReserva(String idHistorialReserva, Reserva reserva, List<HistorialVuelo> vuelosHistoricos, List<Pasajero> pasajerosHistoricos) {
-        this.idHistorialReserva = idHistorialReserva;
-        this.idReservaReferencia = reserva.getIdReserva();
-        this.fechaReserva = reserva.getFechaReserva().toString();
-        this.estadoHistorico = reserva.getEstado();
-        this.vuelosHistoricos = vuelosHistoricos;
-        this.pasajerosHistoricos = pasajerosHistoricos;
+    public HistorialReserva(Compra compra, List<HistorialVuelo> vuelos, List<Pasajero> pasajeros) {
+        this.compra = compra;
+        this.vuelos = vuelos;
+        this.pasajeros = pasajeros;
     }
 
     public void mostrarHistorial() {
-        System.out.printf("Reserva: %s | Fecha: %s | Estado: %s\n", idReservaReferencia, fechaReserva, estadoHistorico);
-        for (Pasajero p : pasajerosHistoricos) {
-            System.out.println("Pasajero: " + p.getNombreCompleto());
+        System.out.println("Compra realizada el: " + compra.getFechaCompra() + " por $" + compra.getMontoTotal());
+        System.out.println("Vuelos:");
+        for (HistorialVuelo vuelo : vuelos) {
+            vuelo.mostrar();
         }
-        for (HistorialVuelo h : vuelosHistoricos) {
-            h.mostrarHistorial();
+        System.out.println("Pasajeros:");
+        for (Pasajero pasajero : pasajeros) {
+            System.out.println(" - " + pasajero.getNombreCompleto());
         }
     }
 }

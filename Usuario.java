@@ -2,42 +2,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario {
-   private String nombre;
    private String correoElectronico;
    private String contrasena;
-   private TarjetaDeCredito tarjeta;
-   private List<HistorialReserva> historialReservas;
+   private String nombre;
+   private List<HistorialReserva> historiales;
 
-   public Usuario(String nombre, String correoElectronico, String contrasena, TarjetaDeCredito tarjeta) {
-      this.nombre = nombre;
+   public Usuario(String correoElectronico, String contrasena, String nombre) {
       this.correoElectronico = correoElectronico;
       this.contrasena = contrasena;
-      this.tarjeta = tarjeta;
-      this.historialReservas = new ArrayList<>();
+      this.nombre = nombre;
+      this.historiales = new ArrayList<>();
    }
 
-   public boolean validarCredenciales(String correo, String contrasena) {
-      return this.correoElectronico.equals(correo) && this.contrasena.equals(contrasena);
-   }
-
-   public boolean validarPago(String numero, String codigo) {
-      return tarjeta.validar(numero, codigo);
+   public boolean validarCredenciales(String correo, String contra) {
+      return correoElectronico.equals(correo) && contrasena.equals(contra);
    }
 
    public void agregarHistorialReserva(HistorialReserva historial) {
-      historialReservas.add(historial);
+      historiales.add(historial);
    }
 
-   public void mostrarHistorialReservas() {
-      int i = 0;
-      do {
-         if (i >= historialReservas.size()) break;
-         historialReservas.get(i).mostrarHistorial();
-         i++;
-      } while (true);
+   public List<HistorialReserva> getHistoriales() {
+      return historiales;
    }
 
    public String getCorreoElectronico() {
       return correoElectronico;
+   }
+
+   public String getNombre() {
+      return nombre;
    }
 }

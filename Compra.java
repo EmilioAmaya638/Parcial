@@ -7,16 +7,12 @@ public class Compra {
 
     public Compra(String idCompra, double montoTotal) {
         this.idCompra = idCompra;
-        this.fechaCompra = LocalDateTime.now();
         this.montoTotal = montoTotal;
-    }
-
-    public void realizarPago(TarjetaDeCredito tarjeta) {
-        System.out.println("Procesando pago con tarjeta: " + tarjeta.getNumeroTarjeta());
+        this.fechaCompra = LocalDateTime.now();
     }
 
     public void generarBoleto() {
-        System.out.println("Boleto generado para compra " + idCompra);
+        System.out.printf("Compra #%s | Fecha: %s | Monto total: %.2f\n", idCompra, fechaCompra, montoTotal);
     }
 }
 

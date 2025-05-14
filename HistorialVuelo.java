@@ -1,13 +1,10 @@
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 public class HistorialVuelo {
     private String idHistorialVuelo;
     private String idVueloReferencia;
     private String origen;
     private String destino;
-    private LocalDate fecha;
-    private LocalTime horaSalida;
+    private String fecha;
+    private String horaSalida;
     private String aerolinea;
     private double tarifaHistorica;
 
@@ -19,16 +16,12 @@ public class HistorialVuelo {
         this.fecha = vuelo.getFecha();
         this.horaSalida = vuelo.getHoraSalida();
         this.aerolinea = vuelo.getAerolinea().getNombre();
-        this.tarifaHistorica = vuelo.consultarTarifa();
+        this.tarifaHistorica = vuelo.getTarifa();
     }
 
-    public String getResumen() {
-        return String.format("%s → %s el %s a las %s ($%.2f)",
-                origen, destino, fecha, horaSalida, tarifaHistorica);
-    }
-
-    public String getIdHistorialVuelo() {
-        return idHistorialVuelo;
+    public void mostrarHistorial() {
+        System.out.printf("Historial Vuelo [%s] %s → %s | Fecha: %s | Hora: %s | Aerolínea: %s | Tarifa: %.2f\n",
+                idVueloReferencia, origen, destino, fecha, horaSalida, aerolinea, tarifaHistorica);
     }
 }
 
